@@ -1,0 +1,36 @@
+<div class="container">
+    <h2>Clientes</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Saldo</th>
+          <th>Seleccionar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes" (click)="selectCliente(cliente)">
+          <td>{{ cliente.nombre }}</td>
+          <td>{{ cliente.email }}</td>
+          <td>${{ cliente.saldo }}</td>
+          <td><button class="btn btn-info">Seleccionar</button></td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="selectedCliente">
+      <h3>Fondos para {{ selectedCliente.nombre }}</h3>
+      <div class="list-group">
+        <div *ngFor="let fondo of fondos" class="list-group-item">
+          <input type="checkbox" 
+                 [value]="fondo.id" 
+                 (change)="fondo.id && toggleFondoSelection(fondo.id)"
+                 [checked]="fondo.id && selectedFondos.includes(fondo.id)">
+          {{ fondo.nombre }} - {{ fondo.categoria }} - ${{ fondo.montoMinimo }}
+        </div>
+      </div>
+      <button (click)="asignarFondos()" class="btn btn-success mt-3">Asignar Fondos</button>
+    </div>
+  </div>
+  
