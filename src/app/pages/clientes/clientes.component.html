@@ -1,0 +1,96 @@
+<div *ngIf="loading" class="spinner-overlay">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<table class="table table-dark table-striped-columns" *ngIf="!loading">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Email</th>
+      <th scope="col">Teléfono</th>
+      <th scope="col">Notificación</th>
+      <th scope="col">Saldo</th>
+      <th scope="col">Editar</th>
+      <th scope="col">Detalles Fondos</th>
+      <th scope="col">Ver transacciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cliente of clientes; let i = index" class="table-success text-dark">
+      <td>{{ cliente.nombre }}</td>
+      <td>{{ cliente.email }}</td>
+      <td>{{ cliente.telefono }}</td>
+      <td>{{ cliente.preferenciaNotificacion }}</td>
+      <td>{{ cliente.saldo }}</td>
+      <td><button *ngIf="cliente.id" (click)="editCliente(cliente.id)" class="btn btn-warning">Editar</button></td>
+      <td><button *ngIf="cliente.fondos?.length" (click)="openDetalleFondos(cliente)" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#fondosModal">Ver Fondos</button></td>
+      <td><button *ngIf="cliente.id" (click)="openTransacciones(cliente)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#transaccionesModal">Ver Transacciones</button></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- Modal para mostrar los fondos -->
+<div class="modal fade" id="fondosModal" tabindex="-1" aria-labelledby="fondosModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="fondosModalLabel">Fondos Asociados a {{ selectedCliente?.nombre }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="selectedCliente && selectedCliente.fondos && selectedCliente.fondos.length > 0">
+          <ul>
+            <li *ngFor="let fondo of selectedCliente.fondos">
+              <input type="checkbox" 
+                     (change)="fondo.id ? toggleFondoSelection(fondo.id) : null" 
+                     [checked]="fondo.id ? selectedFondos.includes(fondo.id) : null">
+              <strong>{{ fondo.nombre }}</strong><br>
+              Monto mínimo: {{ fondo.montoMinimo }}<br>
+              Categoría: {{ fondo.categoria }}
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="!selectedCliente?.fondos?.length">
+          <p>No hay fondos asociados a este cliente.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" (click)="quitarFondos()" [disabled]="!selectedFondos.length">Quitar Fondos</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="transaccionesModal" tabindex="-1" aria-labelledby="transaccionesModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="transaccionesModalLabel">Transacciones de {{ selectedCliente?.nombre }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="transacciones && transacciones.length > 0">
+          <ul>
+            <li *ngFor="let transaccion of transacciones">
+              <strong>Fecha:</strong> {{ transaccion.fecha }}<br>
+              <strong>Monto:</strong> {{ transaccion.monto }}<br>
+              <strong>Tipo:</strong> {{ transaccion.tipo }}<br>
+              <strong>Fondo:</strong> {{ transaccion.fondo.nombre }}
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="!transacciones?.length">
+          <p>No hay transacciones para este cliente.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
