@@ -14,6 +14,16 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
+## Cloudformation
+
+Agregar la plantilla suministrada a cloudformation aws
+
+static-website-hosting-stack-v1.yaml
+- [CLOUDFORMATION](/static-website-hosting-stack-v1.yaml)
+
+## Agregar a s3
+- en el s3 que se creo gracias a la plantilla de cloudformation agregar los archivos de la carpeta que se genero con ng build lo que esta dentro de dist
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
