@@ -6,6 +6,7 @@ import { FondosComponent } from './pages/fondos/fondos.component';
 import { AddFondoComponent } from './pages/fondos/add-fondo/add-fondo.component';
 import { EditComponent } from './pages/clientes/edit/edit.component';
 import { ClientesFondosComponent } from './pages/clientes-fondos/clientes-fondos.component';
+import { EditFondoComponent } from './pages/fondos/edit-fondo/edit-fondo.component';
 
 const routes: Routes = [
   {path:'home',component:ClientesComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path:'cliente-edit/:id',component:EditComponent},
   {path:'fondos',component:FondosComponent},
   {path:'fondo-add',component:AddFondoComponent},
+  {path:'fondo-edit/:id',component:EditFondoComponent},
   {path:'asignar-fondos',component:ClientesFondosComponent},
 
   {path: '**', pathMatch: 'full', redirectTo: 'home' }

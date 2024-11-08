@@ -18,3 +18,11 @@ export interface Fondo {
 export interface FondosIds {
     idsFondos: string[];
 }
+
+export interface Transaccion {
+   
+    fondo:   Fondo;
+    tipo:      string;
+    fecha:     Date;
+    monto:     number;
+}

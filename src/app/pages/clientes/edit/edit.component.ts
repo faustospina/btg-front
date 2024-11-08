@@ -33,8 +33,6 @@ export class EditComponent implements OnInit{
   }
 
 
-  bandera: boolean = false;
-
   ngOnInit() {
   }
 

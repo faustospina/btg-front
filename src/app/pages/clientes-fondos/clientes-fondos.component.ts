@@ -13,6 +13,7 @@ export class ClientesFondosComponent implements OnInit {
   fondos: Fondo[] = [];
   selectedCliente: Cliente | null = null;
   selectedFondos: string[] = [];
+  loading: boolean = true;
 
   constructor(private service: BtgBackService,private router:Router) {}
   
@@ -21,6 +22,7 @@ export class ClientesFondosComponent implements OnInit {
     // Cargar clientes y fondos
     this.loadClientes();
     this.loadFondos();
+    this.loading= false;
   }
 
   loadClientes(): void {

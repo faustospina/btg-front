@@ -1,0 +1,80 @@
+
+  
+  <div *ngIf="succes" class="alert alert-success" role="alert">
+    fondo agregado exitosamente!
+</div>
+
+<div *ngIf="fail" class="alert alert-danger" role="alert">
+    No se pudo agregar el fondo!
+</div>
+
+<h4 class="title">Agregar fondo</h4>
+<hr>
+<form (ngSubmit)="edit(form)" #form="ngForm">
+  <div>
+    <div class="form-group row">
+        
+      
+      <div class="col-8">
+        <label for="nombre" class="col-2 col-form-label">Nombre</label>
+        <input class="form-control temp" type="text" 
+               placeholder="nombre" 
+               name="nombre" 
+               [(ngModel)]="fondo.nombre"
+               #nombre="ngModel"
+               required> 
+        <div *ngIf="nombre.errors?.['required'] && nombre.touched" class="alert alert-danger" role="alert">
+          El nombre es requerido.
+        </div>   
+
+
+        <label for="montoMinimo" class="col-4 col-form-label">Monto Minimo</label>
+        <input class="form-control temp" 
+                type="number" 
+                placeholder="montoMinimo" 
+                name="montoMinimo" 
+                [(ngModel)]="fondo.montoMinimo"
+                #montoMinimo="ngModel" 
+                required
+                min="1">
+        <div *ngIf="montoMinimo.errors?.['required'] && montoMinimo.touched" class="alert alert-danger" role="alert">
+            El montoMinimo es requerido.
+        </div>
+        <div *ngIf="montoMinimo.errors?.['min'] && montoMinimo.touched" class="alert alert-danger" role="alert">
+            El montoMinimo debe ser mayor o igual a 0.
+        </div>
+
+
+        <label for="categoria" class="col-2 col-form-label">Categoria</label>
+        <div class="col-8">
+          <select class="form-control temp" 
+                  name="categoria" 
+                  [(ngModel)]="fondo.categoria" 
+                  #categoria="ngModel" 
+                  required>
+            <option value="" disabled selected>Seleccione una opción</option>
+            <option value="FPV">FPV</option>
+            <option value="FIC">FIC</option>
+          </select>
+          <div *ngIf="categoria.errors?.['required'] && categoria.touched" class="alert alert-danger" role="alert">
+            La categoria es requerida.
+          </div>
+
+          <div *ngIf="nombre.valid && nombre.touched && montoMinimo.valid && montoMinimo.touched && categoria.valid && categoria.touched" class="container main-container alert alert-info temp" role="alert">
+            <h4>¡Bien hecho!</h4>
+          </div>  
+        </div>
+
+      </div>
+    </div>    
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label">&nbsp;</label>
+    <div class="input-group col-md-8">
+      <button [disabled]="!form.valid" type="submit" class="btn btn-outline-primary">
+        Guardar
+      </button>
+    </div>
+  </div>
+
+</form>

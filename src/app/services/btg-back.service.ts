@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
-import { Cliente, Fondo, FondosIds } from '../models/Cliente';
+import { Cliente, Fondo, FondosIds, Transaccion } from '../models/Cliente';
 import { Observable} from 'rxjs'
 @Injectable({
   providedIn: 'root'
@@ -35,9 +35,21 @@ export class BtgBackService {
     return this.http.get<Fondo[]>(`${this.url}/fondos`)
   }
 
+  getFondoById(id:string):Observable<Fondo>{
+    return this.http.get<Fondo>(`${this.url}/fondo/${id}`)
+  }
+
+  
+
   saveFondos(fondo:Fondo):Observable<Fondo[]>{
     return this.http.post<Fondo[]>(`${this.url}/fondo`,fondo)
   }
+
+
+  getTransaccionesById(id:string):Observable<Transaccion[]>{
+    return this.http.get<Transaccion[]>(`${this.url}/transaccion/cliente/${id}`)
+  }
+  
 
   
 

@@ -14,6 +14,7 @@ import { FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { FondosComponent } from './pages/fondos/fondos.component';
 import { AddFondoComponent } from './pages/fondos/add-fondo/add-fondo.component';
 import { ClientesFondosComponent } from './pages/clientes-fondos/clientes-fondos.component';
+import { EditFondoComponent } from './pages/fondos/edit-fondo/edit-fondo.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ClientesFondosComponent } from './pages/clientes-fondos/clientes-fondos
     EditComponent,
     FondosComponent,
     AddFondoComponent,
-    ClientesFondosComponent
+    ClientesFondosComponent,
+    EditFondoComponent
   ],
   imports: [
     BrowserModule,
